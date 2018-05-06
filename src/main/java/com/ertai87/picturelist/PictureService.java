@@ -21,9 +21,14 @@ public class PictureService {
 
         RestTemplate restTemplate = new RestTemplate();
         try{
-            RemoteQueryResponse response = restTemplate.getForObject(endpoint + id, RemoteQueryResponse.class);
+            RemoteQueryResponse response = restTemplate.getForObject(String.format(endpoint, id), RemoteQueryResponse.class);
             LOGGER.info(response.getImageUrl());
-            return response.getImageUrl();
+            if (response.getImageUrl().toLowerCase().startsWith("http")) {
+                return response.getImageUrl();
+            }else{
+                LOGGER.info("URL is invalid");
+                return null;
+            }
         }catch(HttpClientErrorException e){
             if (e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
                 LOGGER.info("No picture found for ID " + id);
