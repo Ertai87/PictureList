@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
+@ComponentScan("com.ertai87.picturelist")
 @PropertySource("classpath:application.properties")
 public class TestConfiguration {
     @Bean
