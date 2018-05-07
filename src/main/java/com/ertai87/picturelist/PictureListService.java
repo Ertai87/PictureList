@@ -23,7 +23,7 @@ public class PictureListService {
 
     public QueryResult getPictures(int startId){
         List<String> urls = new LinkedList<>();
-        int lastFound = startId - 1;
+        int lastFound = startId;
         for (int i = startId; urls.size() < listLength && i < lastFound + timeoutLength; i++){
             String url = pictureService.getPicture(i);
             if (url != null){
@@ -44,6 +44,6 @@ public class PictureListService {
             url = pictureService.getPicture(id);
             id++;
         }
-        return new QueryResult(true, id, Arrays.asList(new String[]{url}));
+        return new QueryResult(true, id - 1, Arrays.asList(new String[]{url}));
     }
 }

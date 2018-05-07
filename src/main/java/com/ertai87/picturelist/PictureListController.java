@@ -15,7 +15,7 @@ public class PictureListController {
     }
 
     @RequestMapping("/getImagesForce/{id}/")
-    public @ResponseBody QueryResult getPicturesFromStartIdForced(@PathVariable("id") int id){
+    public @ResponseBody QueryResult getPictureFromIdForced(@PathVariable("id") int id){
         return pictureListService.getPictureForced(id);
     }
 }

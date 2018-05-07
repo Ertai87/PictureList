@@ -1,6 +1,6 @@
 $(function(){
 
-    var fileIndex = 0;
+    var nextFileIndex = 0;
     var moreImages = true;
     var forceButtonActive = false;
     var getDataLock = false;
@@ -10,13 +10,13 @@ $(function(){
             getDataLock = true;
             $.ajax({
                 type: "GET",
-                url: "/tomcat/getImages/" + fileIndex + "/",
+                url: "/tomcat/getImages/" + nextFileIndex + "/",
                 error: function(xhr, status, error) {
                     alert("ERROR: " + JSON.parse(xhr.responseText).message);
                 },
                 success: function(data, status){
                     moreImages = data.full;
-                    fileIndex = data.maxId + 1;
+                    nextFileIndex = data.maxId + 1;
                     getImages(data.urls);
                     if (!moreImages && !forceButtonActive){
                         forceButtonActive = true;
@@ -41,14 +41,14 @@ $(function(){
                 forceButtonActive = false;
                 $.ajax({
                     type: "GET",
-                    url: "/tomcat/getImagesForce/" + fileIndex + "/",
+                    url: "/tomcat/getImagesForce/" + nextFileIndex + "/",
                     error: function(xhr, status, error) {
                         alert("ERROR: " + JSON.parse(xhr.responseText).message);
                     },
                     success: function(data, status){
                         moreImages = data.full;
                         getImages(data.urls);
-                        fileIndex = data.maxId + 1;
+                        nextFileIndex = data.maxId + 1;
                     }
                 });
             }

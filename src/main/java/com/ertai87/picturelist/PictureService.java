@@ -2,6 +2,7 @@ package com.ertai87.picturelist;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,12 @@ public class PictureService {
     @Value("${remote.endpoint}")
     private String endpoint;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     public String getPicture(int id){
         LOGGER.info("Querying ID: " + id);
 
-        RestTemplate restTemplate = new RestTemplate();
         try{
             RemoteQueryResponse response = restTemplate.getForObject(String.format(endpoint, id), RemoteQueryResponse.class);
             LOGGER.info(response.getImageUrl());
